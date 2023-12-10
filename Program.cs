@@ -134,11 +134,17 @@ namespace Practice_Linq
             //Query 5: Вивести всі кваліфікаційні матчі (UEFA Euro qualification), які відбулися у Києві чи у Харкові, а також за умови перемоги української збірної.
 
 
-            var selectedGames = games;  // Корегуємо запит !!!
+            var selectedGames = games
+                .Where(game => game.Tournament == "UEFA Euro qualification" && (game.City == "Kharkiv" || game.City == "Kyiv") && game.Home_team == "Ukraine" && game.Home_score > game.Away_score)
+                .OrderBy(game => game.Date.Year);
 
 
             // Перевірка
             Console.WriteLine("\n======================== QUERY 5 ========================");
+            foreach (var game in selectedGames)
+            {
+                Console.WriteLine($"{game.Date:dd.MM.yyyy} {game.Home_team} - {game.Away_team}, Score: {game.Home_score} - {game.Away_score}, Country: {game.Country}");
+            }
 
             // див. приклад як має бути виведено:
 
